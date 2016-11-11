@@ -10,11 +10,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'devise'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -24,4 +27,5 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'launchy'
 end
