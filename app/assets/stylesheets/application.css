@@ -14,6 +14,10 @@
  *= require_self
  */
 
+ body {
+   padding-top: 60px;
+ }
+
 /* Simple Calendar */
 .simple-calendar table {
   -webkit-border-horizontal-spacing: 0px;
