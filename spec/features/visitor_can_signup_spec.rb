@@ -10,7 +10,7 @@ RSpec.feature "visitor can sign up", type: :feature do
       fill_in "Email", with: "user@example.com"
       fill_in "Password", with: "abc123"
       fill_in "Password confirmation", with: "abc123"
-      click_button "Sign up"
+      click_button "Sign Up"
 
       expect(page).to have_content "Welcome! You have signed up successfully."
       expect(page).to have_content "You currently have no bookings."
@@ -26,7 +26,7 @@ RSpec.feature "visitor can sign up", type: :feature do
       fill_in "Email", with: ""
       fill_in "Password", with: "abc123"
       fill_in "Password confirmation", with: "abc123"
-      click_button "Sign up"
+      click_button "Sign Up"
 
       expect(page).to have_content "Email can't be blank"
     end
