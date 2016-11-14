@@ -14,6 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'simple_calendar'
+gem 'activeadmin', '~> 1.0.0.pre4'
 
 group :development, :test do
   gem 'byebug'
@@ -32,4 +33,5 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'shoulda-matchers'
 end

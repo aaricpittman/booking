@@ -1,4 +1,13 @@
 FactoryGirl.define do
+  factory :role_assignment do
+    role
+    user
+  end
+
+  factory :role do
+    sequence(:name) { |n| "admin#{n}" }
+  end
+
   factory :booking do
     user
     room

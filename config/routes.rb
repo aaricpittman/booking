@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  ActiveAdmin.routes(self)
+
   root 'bookings#index'
 
   # Example of regular route:
