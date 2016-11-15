@@ -18,10 +18,22 @@ room_types = [
     RoomType.create(name: 'Suite', rate: '19999')
 ]
 
+hotels = []
 ['Four Season', 'The Ritz', 'The Plaza'].each do |hotel_name|
   hotel = Hotel.create(name: hotel_name)
 
   10.times do
     Room.create(hotel: hotel, room_type: room_types.sample)
   end
+
+  hotels << hotel
+end
+
+hotels.each do |hotel|
+  Booking.create(
+    user: user,
+    room: hotel.rooms.first,
+    check_in: 10.days.from_now,
+    check_out: 17.days.from_now
+  )
 end

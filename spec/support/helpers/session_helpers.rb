@@ -4,7 +4,7 @@ module Features
       visit new_user_registration_path
       fill_in 'Email', with: email
       fill_in 'Password', with: password
-      fill_in 'Password confirmation', :with => password
+      fill_in 'Password confirmation', with: password
       click_button 'Sign Up'
     end
 
@@ -15,4 +15,8 @@ module Features
       click_button 'Sign In'
     end
   end
+end
+
+RSpec.configure do |config|
+  config.include Features::SessionHelpers, type: :feature
 end
