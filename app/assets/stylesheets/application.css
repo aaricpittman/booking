@@ -18,6 +18,12 @@
    padding-top: 60px;
  }
 
+ a.btn-new-reservation {
+   color: #000000;
+   float: right;
+   text-decoration: none;
+ }
+
 /* Simple Calendar */
 .simple-calendar table {
   -webkit-border-horizontal-spacing: 0px;
