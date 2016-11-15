@@ -1,0 +1,53 @@
+<h1>New Booking</h1>
+
+<%= form_for @booking do |f| %>
+  <%= render "error_messages", target: @booking %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Reservation Info.</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="form-group col-xs-4">
+          <%= f.label :check_in, 'Check In' %>
+          <%= f.date_field :check_in, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <%= f.label :check_out, 'Check Out' %>
+          <%= f.date_field :check_out, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-4">
+          <%= label_tag 'hotel_id','Hotel' %>
+          <%= select_tag "hotel_id", options_from_collection_for_select(@hotels, "id", "name", @hotel ? @hotel.id : nil), include_blank: true, class: "form-control" %>
+        </div>
+
+        <div id="room-field" class="form-group col-xs-4" style="display: none;">
+          <%= label_tag 'room_type_id', 'Room Type' %>
+          <%= select_tag :room_type_id, options_from_collection_for_select([], "id", "name"), class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-8">
+          <%= f.label :description %>
+          <%= text_area :booking, :description, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.button "Book It!", class: "btn btn-default" %>
+<% end %>
+
+<%= content_for(:footer_scripts) do %>
+  <script>
+    (function() {
+      booking.setupBookingForm();
+    })();
+  </script>
+<% end %>

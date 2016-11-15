@@ -5,6 +5,18 @@ Rails.application.routes.draw do
 
   root 'bookings#index'
 
+  namespace :api do
+    namespace :v1 do
+      resources :hotels, only: [] do
+        resources :rooms, only: [:index] do
+          get :types_count, on: :collection
+        end
+      end
+    end
+  end
+
+  resources :bookings, only: [:new, :create]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
