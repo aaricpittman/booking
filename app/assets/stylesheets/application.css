@@ -20,9 +20,7 @@
  }
 
  a.btn-new-reservation {
-   color: #000000;
    float: right;
-   text-decoration: none;
  }
 
 /* Simple Calendar */
@@ -85,5 +83,21 @@
 
 .simple-calendar .next-month {
   background: #DDD;
+}
+
+.simple-calendar .calendar-heading {
+  padding: 5px 0;
+  text-align: center;
+}
+
+.simple-calendar .calendar-heading a {
+  color: #000000;
+  font-size: 1.7em;
+  margin: 0 10px;
+}
+
+.simple-calendar .calendar-title {
+  font-size: 2em;
+  font-weight: 700;
 }
 /* End Simple Calendar */
