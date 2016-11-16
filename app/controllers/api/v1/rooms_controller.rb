@@ -1,22 +1,11 @@
 class Api::V1::RoomsController < ApplicationController
-  before_action :get_hotel
-
-  def index
-    render json: { rooms: @hotel.rooms.includes(:room_type) }, include: [:room_type]
-  end
-
-  def types_count
+  def available_types
+    @hotel = Hotel.find(params[:hotel_id])
     types = @hotel.room_types
-      .group(:id, :name)
+      .group(:id, :name, :rate_cents)
       .count
-      .map{ |data,count| { id: data[0], name: data[1], count: count } }
+      .map{ |data,count| { id: data[0], name: data[1], rate_cents: data[2], count: count } }
 
     render json: { types: types }
-  end
-
-  private
-
-  def get_hotel
-    @hotel = Hotel.find(params[:hotel_id])
   end
 end

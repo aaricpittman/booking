@@ -7,45 +7,23 @@ class BookingsController < ApplicationController
 
   def new
     get_hotels
-    @booking = Booking.new
+    @reserve_a_room = ReserveARoom.new
   end
 
   def create
-    @booking = current_user.bookings.new(booking_params)
+    @reserve_a_room = ReserveARoom.new(params[:reserve_a_room])
+    @reserve_a_room.user = current_user
 
-    return if dates_arent_picked_yet?
-
-    unless params[:hotel_id].present?
-      render_new "You must select a hotel."
-      return
-    end
-
-    @hotel = Hotel.find(params[:hotel_id])
-
-    unless params[:room_type_id].present?
-      render_new("You must select a room type.")
-      return
-    end
-
-    @room_type = RoomType.find(params[:room_type_id])
-
-    @room = @hotel.rooms
-      .by_type(@room_type.id)
-      .available_on(@booking.check_in, @booking.check_out)
-      .first
-
-    if @room.present?
-      @booking.room = @room
-
-      if @booking.save
+    if @reserve_a_room.valid?
+      if @reserve_a_room.save
         flash[:success] = "Your room has been booked!"
         redirect_to root_path
-      else
-        render_new "I am here!"
+        return
       end
-    else
-      render_new "Room is no longer available for those dates."
     end
+
+    get_hotels
+    render :new
   end
 
   private

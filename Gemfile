@@ -15,6 +15,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'simple_calendar'
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'money-rails'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug'

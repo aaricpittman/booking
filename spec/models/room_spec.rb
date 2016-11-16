@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, '.available_on', type: :model do
+RSpec.describe Room, '.available_on', type: :model do
   it "should return a list of rooms that are not booked on during that date range" do
     start_date = Time.now
     end_date = 3.days.from_now

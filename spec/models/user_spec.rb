@@ -22,7 +22,6 @@ RSpec.describe User, '#in_role?', type: :model do
   end
 
   it "should return true if parameter is in list of roles" do
-    puts
     expect(subject.in_role?(:admin)).to be true
   end
 

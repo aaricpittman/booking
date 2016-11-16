@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :hotels, only: [] do
-        resources :rooms, only: [:index] do
-          get :types_count, on: :collection
+        resources :rooms, only: [] do
+          get :available_types, on: :collection
         end
       end
     end

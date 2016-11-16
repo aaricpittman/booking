@@ -6,6 +6,8 @@ class Booking < ActiveRecord::Base
 
   delegate :hotel, to: :room
 
+  monetize :total_cents
+
   def hotel_name
     hotel.name
   end
