@@ -13,7 +13,7 @@ RSpec.feature "visitor can sign up", type: :feature do
       click_button "Sign Up"
 
       expect(page).to have_content "Welcome! You have signed up successfully."
-      expect(page).to have_content "You currently have no bookings."
+      expect(page).to have_content "You currently have no reservations."
     end
   end
 

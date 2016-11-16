@@ -14,6 +14,7 @@ FactoryGirl.define do
     check_in Time.now
     check_out Time.now + 1.day
     description "MyText"
+    total_cents 10000
   end
 
   factory :hotel do

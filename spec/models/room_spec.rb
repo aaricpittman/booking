@@ -31,8 +31,6 @@ RSpec.describe Room, '.available_on', type: :model do
       check_in: 1.year.ago,
       check_out: 1.year.ago + 2.days)
 
-    puts Booking.all.inspect
-
     expect(Room.available_on(start_date, end_date)).to match_array([
       room1,
       room3,

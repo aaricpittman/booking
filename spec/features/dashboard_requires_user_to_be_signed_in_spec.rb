@@ -17,7 +17,7 @@ RSpec.feature "dashboard requires user to be signed in", type: :feature do
       visit root_path
 
       expect(current_path).to eq(root_path)
-      expect(page).to have_content "You currently have no bookings."
+      expect(page).to have_content "You currently have no reservations."
     end
   end
 end
