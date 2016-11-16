@@ -27,7 +27,7 @@ FactoryGirl.define do
 
   factory :room_type do
     name "Standard Room"
-    rate 9999
+    rate_cents 9999
   end
 
   factory :user do

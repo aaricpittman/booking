@@ -11,6 +11,8 @@ ActiveAdmin.register Booking do
     column :hotel
     column :check_in
     column :check_out
+    column :total
+    column :charge_id
     actions
   end
 

@@ -1,7 +1,8 @@
 <h1>New Reservation</h1>
 
-<%= form_for @booking do |f| %>
-  <%= render "error_messages", target: @booking %>
+<%= form_for @reserve_a_room, url: { action: :create } do |f| %>
+  <%= f.hidden_field :stripe_token %>
+  <%= render "error_messages", target: @reserve_a_room %>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -11,7 +12,7 @@
       <div class="row">
         <div class="form-group col-xs-4">
           <%= f.label :check_in, 'Check In' %>
-          <%= f.date_field :check_in, class: "form-control" %>
+          <%= f.date_field :check_in, class: "form-control", required: true %>
         </div>
 
         <div class="form-group col-xs-4">
@@ -22,32 +23,47 @@
 
       <div class="row">
         <div class="form-group col-xs-4">
-          <%= label_tag 'hotel_id','Hotel' %>
-          <%= select_tag "hotel_id", options_from_collection_for_select(@hotels, "id", "name", @hotel ? @hotel.id : nil), include_blank: true, class: "form-control" %>
+          <%= f.label :hotel_id,'Hotel' %>
+          <%= f.select :hotel_id, @hotels.collect{ |h| [h.name, h.id] }, { include_blank: true }, { class: "form-control" } %>
         </div>
 
         <div id="room-field" class="form-group col-xs-4" style="display: none;">
-          <%= label_tag 'room_type_id', 'Room Type' %>
-          <%= select_tag :room_type_id, options_from_collection_for_select([], "id", "name"), class: "form-control" %>
+          <%= f.label :room_type_id, 'Room Type' %>
+          <%= f.select :room_type_id, [], {}, { class: "form-control" } %>
         </div>
       </div>
 
       <div class="row">
         <div class="form-group col-xs-8">
           <%= f.label :description %>
-          <%= text_area :booking, :description, class: "form-control" %>
+          <%= text_area :reserve_a_room, :description, class: "form-control" %>
         </div>
       </div>
     </div>
   </div>
 
-  <%= f.button "Book It!", class: "btn btn-default" %>
+  <%= f.button "Book It!", id: 'create-reservation-btn', class: "btn btn-default" %>
+<% end %>
+
+<script id="error-template" type="text/x-handlebars-template">
+  <div class="alert alert-danger">
+    <h2>{{count}} errors prohibited this record from being saved:</h2>
+    <ul>
+      {{#each messages}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</script>
+
+<%= content_for(:pre_header_scripts) do %>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 <% end %>
 
 <%= content_for(:footer_scripts) do %>
   <script>
     (function() {
-      booking.setupBookingForm();
+      booking.setupBookingForm('<%= Rails.configuration.stripe[:publishable_key] %>');
     })();
   </script>
 <% end %>

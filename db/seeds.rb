@@ -13,9 +13,9 @@ admin_user.roles << admin_role
 user = User.create!(email: 'user@example.com', password: 'password', password_confirmation: 'password')
 
 room_types = [
-    RoomType.create(name: 'Double Queen', rate: '9999'),
-    RoomType.create(name: 'King', rate: '15999'),
-    RoomType.create(name: 'Suite', rate: '19999')
+    RoomType.create(name: 'Double Queen', rate_cents: '9999'),
+    RoomType.create(name: 'King', rate_cents: '15999'),
+    RoomType.create(name: 'Suite', rate_cents: '19999')
 ]
 
 hotels = []
