@@ -15,28 +15,43 @@ if (typeof booking === 'undefined') {
     var roomTypeSelectId = '#reserve_a_room_room_type_id';
 
     var fetchRoomTypes = function(hotelId, callback) {
-      $.ajax({
-        url: '/api/v1/hotels/'+hotelId+'/rooms/available_types',
-        success: function(data, status, request){
-          callback($.map(data.types, function(type) {
-            return extendRoomType(type);
-          }));
-        },
-        error: function(request, status, error) {
-          console.log('ERROR:', error);
-        }
-      });
+      if(validateForm()) {
+        $.ajax({
+          url: '/api/v1/hotels/'+hotelId+'/rooms/available_types',
+          data: {
+            check_in: $(checkInId).val(),
+            check_out: $(checkOutId).val()
+          },
+          success: function(data, status, request){
+            console.log('FETCHED TYPES');
+            callback($.map(data.types, function(type) {
+              return extendRoomType(type);
+            }));
+          },
+          error: function(request, status, error) {
+            console.log('ERROR:', error);
+          }
+        });
+      }
     };
 
     var processRoomTypes = function(types) {
       var $roomTypeSelect = $(roomTypeSelectId);
+      var selectedRoomId = $roomTypeSelect.val();
       roomTypes = types;
 
       $roomTypeSelect.find('option').remove();
       $roomTypeSelect.append('<option value></option>');
 
       $.each(types, function(index, type) {
-        $roomTypeSelect.append('<option value="'+type.id+'">'+type.toLabel()+'</option>');
+        var $ele = $('<option></option>');
+        $ele.attr('value', type.id);
+        if (type.id == selectedRoomId) {
+          $ele.attr('selected', true);
+        }
+        $ele.text(type.name+' ($'+type.toDollars()+'/night)');
+
+        $roomTypeSelect.append($ele);
       });
 
       $('#room-field').show();
@@ -107,6 +122,7 @@ if (typeof booking === 'undefined') {
         }
       });
 
+      console.log('OPTIONS: ', getStripeOptions());
       stripe.open(getStripeOptions());
     };
 
@@ -148,15 +164,20 @@ if (typeof booking === 'undefined') {
         count: messages.length,
         messages: messages
       };
+      var html = template(context);
 
-      $('#new_reserve_a_room').prepend(template(context));
+      if($('div.alert-danger').length > 0) {
+        $('div.alert-danger').replaceWith(html);
+      } else {
+        $('#new_reserve_a_room').prepend(html);
+      }
     };
 
     var setupBookingForm = function(stripeKey) {
       checkForExistingHotelSelection();
 
-      $(hotelSelectId).change(function() {
-        var hotelId = $(this).val();
+      $(checkInId+','+checkOutId+','+hotelSelectId).change(function() {
+        var hotelId = $(hotelSelectId).val();
 
         if (hotelId === '') {
           $('#room-field').hide();
