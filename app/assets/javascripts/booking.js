@@ -193,9 +193,7 @@ if (typeof booking === 'undefined') {
 
       $('#reserve_a_room_room_type_id').change(function() {
         var roomType = findSelectedRoomType();
-        console.log('ROOM TYPE: ', roomType);
-        var html = renderTemplate('#ammenities-template', roomType.ammenities);
-        console.log('HTML: ', html);
+        var html = renderTemplate('#ammenities-template', { ammenities: roomType.ammenities });
 
         $('#ammenties').replaceWith(html);
       })
