@@ -162,11 +162,10 @@ if (typeof booking === 'undefined') {
       var template = Handlebars.compile(source);
 
       return template(context);
-    }
+    };
 
     var renderErrorMessages = function(messages) {
-      var html = renderTemplate('error-template'
-        {
+      var html = renderTemplate('#error-template', {
         count: messages.length,
         messages: messages
       });
