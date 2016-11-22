@@ -14,7 +14,8 @@ class Api::V1::RoomsController < ApplicationController
         name: data[1],
         rate_cents: data[2],
         count: count,
-        ammenities: Ammenity.where(room_type_id: data[0]).pluck(:title, :description)
+        ammenities: Ammenity.where(room_type_id: data[0])
+          .pluck(:title, :description).map{ |d| { title: d[0], description: d[1] }}
       } }
 
 
