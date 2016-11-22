@@ -9,7 +9,15 @@ class Api::V1::RoomsController < ApplicationController
       .available_on(check_in, check_out)
       .group("room_types.id", "room_types.name", "room_types.rate_cents")
       .count
-      .map{ |data,count| { id: data[0], name: data[1], rate_cents: data[2], count: count } }
+      .map{ |data,count| {
+        id: data[0],
+        name: data[1],
+        rate_cents: data[2],
+        count: count,
+        ammenities: Ammenity.where(room_type_id: data[0]).pluck(:title, :description)
+      } }
+
+
 
     render json: { types: types }
   end

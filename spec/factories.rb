@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :ammenity do
+    title "MyString"
+    room_type_id 1
+    description "MyString"
+  end
   factory :role_assignment do
     role
     user

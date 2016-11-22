@@ -157,14 +157,19 @@ if (typeof booking === 'undefined') {
       return valid;
     };
 
-    var renderErrorMessages = function(messages) {
-      var source   = $("#error-template").html();
+    var renderTemplate = function(templateId, context) {
+      var source   = $(templateId).html();
       var template = Handlebars.compile(source);
-      var context  = {
+
+      return template(context);
+    }
+
+    var renderErrorMessages = function(messages) {
+      var html = renderTemplate('error-template'
+        {
         count: messages.length,
         messages: messages
-      };
-      var html = template(context);
+      });
 
       if($('div.alert-danger').length > 0) {
         $('div.alert-danger').replaceWith(html);
@@ -186,6 +191,13 @@ if (typeof booking === 'undefined') {
 
         fetchRoomTypes(hotelId, processRoomTypes);
       });
+
+      $('#reserve_a_room_room_type_id').change(function() {
+        var roomType = findSelectedRoomType();
+        var html = renderTemplate('#ammenities-template', roomType.ammenities);
+
+        $('#ammenties').replaceWith(html);
+      })
 
       $('#create-reservation-btn').click(function(evt) {
         evt.preventDefault();

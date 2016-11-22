@@ -33,6 +33,8 @@
         </div>
       </div>
 
+      <div id="ammenties" class="row" style="display:none;"></div>
+
       <div class="row">
         <div class="form-group col-xs-8">
           <%= f.label :description %>
@@ -54,6 +56,17 @@
       {{/each}}
     </ul>
   </div>
+</script>
+
+<script id="ammenities-template" type="text/x-handlebars-template">
+  <ul>
+    {{#each ammenties}}
+    <li>
+      <span>{{title}}</span>
+      <p>{{description}}</p>
+    </li>
+    {{/each}}
+  </ul>
 </script>
 
 <%= content_for(:pre_header_scripts) do %>
