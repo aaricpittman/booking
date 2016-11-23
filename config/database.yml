@@ -6,13 +6,13 @@ default: &default
 development:
   <<: *default
   database: booking_development
-  host: localhost
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
   username: postgres
 
 test:
   <<: *default
   database: booking_test
-  host: localhost
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
   username: postgres
 
 production:
